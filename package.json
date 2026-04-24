@@ -12,8 +12,8 @@
     "test:unit": "jest test/unit",
     "test:integration": "jest test/integration",
     "test:e2e": "jest test/e2e --runInBand",
-    "lint": "eslint lib bin test",
-    "lint:fix": "eslint --fix lib bin test",
+    "lint": "eslint lib bin/start test",
+    "lint:fix": "eslint --fix lib bin/start test",
     "benchmark:parquet": "node scripts/benchmark-parquet-reader.js"
   },
   "engines": {
@@ -51,7 +51,9 @@
     "through2": "^4.0.2"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.4",
     "eslint": "^9.17.0",
+    "globals": "^15.15.0",
     "jest": "^29.7.0",
     "testcontainers": "^10.16.0"
   }

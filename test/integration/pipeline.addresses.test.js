@@ -3,7 +3,6 @@
 // Integration test: run the addresses source stream against a locally
 // generated parquet fixture. No network access required.
 
-const path = require('path');
 const { run: makeFixtures, FIXTURE_DIR } = require('../fixtures/make-fixtures');
 const { createAddressesStream } = require('../../lib/themes/addresses');
 
