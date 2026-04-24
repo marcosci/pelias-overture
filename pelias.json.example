@@ -1,0 +1,37 @@
+{
+  "imports": {
+    "adminLookup": {
+      "enabled": true
+    },
+    "overture": {
+      "datapath": "/data/overture/2026-04-15.0",
+      "s3": {
+        "enabled": false,
+        "release": "2026-04-15.0",
+        "bucket": "overturemaps-us-west-2",
+        "region": "us-west-2"
+      },
+      "themes": {
+        "addresses": {
+          "enabled": true
+        },
+        "places": {
+          "enabled": true,
+          "minConfidence": 0.7,
+          "categories": {
+            "include": [],
+            "exclude": []
+          }
+        }
+      },
+      "countryCode": ["US", "CA", "GB"],
+      "reader": "duckdb",
+      "parallelism": 4,
+      "adminLookupConcurrency": 4,
+      "deduplicate": true,
+      "adminLookup": true,
+      "batchSize": 500,
+      "checkpointPath": "/data/overture/checkpoint.json"
+    }
+  }
+}

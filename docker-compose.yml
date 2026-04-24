@@ -1,0 +1,19 @@
+services:
+  overture:
+    build: .
+    image: pelias/overture:dev
+    volumes:
+      - ./pelias.json:/app/pelias.json:ro
+      - ./data:/data
+    environment:
+      - PELIAS_CONFIG=/app/pelias.json
+    depends_on:
+      - elasticsearch
+
+  elasticsearch:
+    image: pelias/elasticsearch:8.x
+    environment:
+      - discovery.type=single-node
+      - ES_JAVA_OPTS=-Xms1g -Xmx1g
+    ports:
+      - "9200:9200"

@@ -1,0 +1,42 @@
+#!/usr/bin/env node
+'use strict';
+
+// pelias-overture CLI entry point.
+
+const peliasConfig = require('pelias-config');
+const logger = require('pelias-logger').get('overture');
+const { validate } = require('../schema');
+const { run } = require('../lib/pipeline');
+const { createAddressesStream } = require('../lib/themes/addresses');
+const { createPlacesStream } = require('../lib/themes/places');
+
+async function main() {
+  const config = peliasConfig.generate();
+  const validated = validate(config);
+  const overture = validated.imports.overture;
+
+  logger.info('pelias-overture starting', {
+    datapath: overture.datapath,
+    themes: Object.keys(overture.themes).filter((t) => overture.themes[t].enabled),
+    countryCode: overture.countryCode,
+    adminLookup: overture.adminLookup,
+    parallelism: overture.parallelism
+  });
+
+  if (overture.themes.addresses && overture.themes.addresses.enabled) {
+    const sourceStream = createAddressesStream({ overture });
+    await run({ sourceStream, overture, themeLabel: 'addresses' });
+  }
+
+  if (overture.themes.places && overture.themes.places.enabled) {
+    const sourceStream = createPlacesStream({ overture });
+    await run({ sourceStream, overture, themeLabel: 'places' });
+  }
+
+  logger.info('pelias-overture done');
+}
+
+main().catch((err) => {
+  logger.error('pelias-overture failed', { error: err.message, stack: err.stack });
+  process.exitCode = 1;
+});
