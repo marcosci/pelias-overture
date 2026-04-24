@@ -144,7 +144,7 @@ npm run test:integration    # generates local parquet fixture via DuckDB
 
 Tag pushes (`vX.Y.Z`) trigger the `docker-publish` workflow, which pushes multi-tag images to [`ghcr.io/marcosci/pelias-overture`](https://github.com/marcosci/pelias-overture/pkgs/container/pelias-overture). Authentication uses the built-in `GITHUB_TOKEN` — no secrets to configure.
 
-Multi-arch (`linux/arm64`) is not published yet: the `duckdb` native addon ships prebuilt binaries for `linux/amd64` only. Adding `arm64` requires a cross-compile path that builds DuckDB from source.
+Images publish for `linux/amd64` and `linux/arm64`. The DuckDB bindings ship prebuilt binaries for both architectures; buildx + QEMU cross-builds in CI.
 
 ## Attribution
 

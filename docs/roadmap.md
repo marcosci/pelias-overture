@@ -23,7 +23,6 @@ Tracked improvements beyond the initial alpha.
 - [ ] Partition-level (not just theme-level) checkpoint so a failing run resumes without re-reading completed parquet parts.
 - [ ] Prometheus / statsd metrics endpoint covering reader throughput, transform drops, and dbclient back-pressure.
 - [ ] Local-mirror benchmark run committed to [`docs/benchmark-results.md`](benchmark-results.md) alongside the S3 cold-read numbers.
-- [ ] `linux/arm64` Docker image. Requires building DuckDB from source in CI (no prebuilt arm64 addon today).
 - [ ] Data-quality report at end of run: dropped rows by reason, country distribution, confidence distribution.
 
 ## Scope boundaries
