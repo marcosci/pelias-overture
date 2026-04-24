@@ -6,7 +6,7 @@ const Joi = require('joi');
 // Mirrors convention of other Pelias importer schemas (strict, fail-fast).
 const schema = Joi.object().keys({
   imports: Joi.object().required().keys({
-    overture: Joi.object().required().keys({
+    overture: Joi.object().required().unknown(false).keys({
       datapath: Joi.string().required()
         .description('Filesystem path to Overture release root, e.g. /data/overture/2026-04-23.0'),
 
@@ -46,7 +46,7 @@ const schema = Joi.object().keys({
       checkpointPath: Joi.string().optional()
         .description('Path to write partition-level checkpoint file for resumable imports')
     })
-  })
+  }).unknown(true)
 }).unknown(true);
 
 function validate(config) {
