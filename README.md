@@ -33,15 +33,15 @@ Requires Node 20+. DuckDB native bindings are installed automatically; if they f
 ./bin/start
 ```
 
-Or via Docker Hub:
+Or via GitHub Container Registry:
 
 ```bash
-docker pull marcosci/pelias-overture:latest
+docker pull ghcr.io/marcosci/pelias-overture:latest
 docker run --rm \
   -v $(pwd)/pelias.json:/app/pelias.json:ro \
   -v /data/overture:/data/overture:ro \
   -e PELIAS_CONFIG=/app/pelias.json \
-  marcosci/pelias-overture:latest
+  ghcr.io/marcosci/pelias-overture:latest
 ```
 
 Tags published: `latest` (main), `vX.Y.Z` + `vX.Y` + `vX` on release, `sha-<short>` on every push.
@@ -136,10 +136,7 @@ npm run test:integration    # generates local parquet fixture via DuckDB
 
 ## Release
 
-Tag pushes (`vX.Y.Z`) trigger the `docker-publish` workflow, which pushes multi-tag images to [`marcosci/pelias-overture`](https://hub.docker.com/r/marcosci/pelias-overture). Two repository secrets are required:
-
-- `DOCKERHUB_USERNAME`
-- `DOCKERHUB_TOKEN` — create via Docker Hub → Account Settings → Security → New Access Token (scoped: `Read, Write, Delete`).
+Tag pushes (`vX.Y.Z`) trigger the `docker-publish` workflow, which pushes multi-tag images to [`ghcr.io/marcosci/pelias-overture`](https://github.com/marcosci/pelias-overture/pkgs/container/pelias-overture). Authentication uses the built-in `GITHUB_TOKEN` — no secrets to configure.
 
 Multi-arch (`linux/arm64`) is not published yet: the `duckdb` native addon ships prebuilt binaries for `linux/amd64` only. Adding `arm64` requires a cross-compile path that builds DuckDB from source.
 

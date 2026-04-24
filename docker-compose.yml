@@ -1,7 +1,7 @@
 services:
   overture:
     build: .
-    image: pelias/overture:dev
+    image: ghcr.io/marcosci/pelias-overture:dev
     volumes:
       - ./pelias.json:/app/pelias.json:ro
       - ./data:/data
