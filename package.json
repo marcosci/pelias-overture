@@ -14,7 +14,9 @@
     "test:e2e": "jest test/e2e --runInBand",
     "lint": "eslint lib bin/start test",
     "lint:fix": "eslint --fix lib bin/start test",
-    "benchmark:parquet": "node scripts/benchmark-parquet-reader.js"
+    "benchmark:parquet": "node scripts/benchmark-parquet-reader.js",
+    "es:create-index": "node scripts/create-pelias-index.js",
+    "es:drop-index": "node scripts/drop-pelias-index.js"
   },
   "engines": {
     "node": ">=20.0.0"
@@ -41,12 +43,14 @@
   "homepage": "https://github.com/marcosci/pelias-overture#readme",
   "dependencies": {
     "@duckdb/node-api": "^1.5.2-r.1",
+    "elasticsearch": "^16.7.3",
     "joi": "^17.13.3",
     "pelias-blacklist-stream": "^1.4.0",
     "pelias-config": "^6.1.0",
     "pelias-dbclient": "^3.3.0",
     "pelias-logger": "^1.6.0",
     "pelias-model": "^10.6.0",
+    "pelias-schema": "^9.1.0",
     "pelias-wof-admin-lookup": "^7.17.0",
     "through2": "^4.0.2"
   },

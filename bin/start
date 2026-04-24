@@ -9,6 +9,7 @@ const { validate } = require('../schema');
 const { run } = require('../lib/pipeline');
 const { createAddressesStream } = require('../lib/themes/addresses');
 const { createPlacesStream } = require('../lib/themes/places');
+const { createCheckpoint } = require('../lib/util/checkpoint');
 
 async function main() {
   const config = peliasConfig.generate();
@@ -23,14 +24,26 @@ async function main() {
     parallelism: overture.parallelism
   });
 
+  const checkpoint = createCheckpoint(overture.checkpointPath);
+
   if (overture.themes.addresses && overture.themes.addresses.enabled) {
-    const sourceStream = createAddressesStream({ overture });
-    await run({ sourceStream, overture, themeLabel: 'addresses' });
+    if (checkpoint.has('addresses')) {
+      logger.info('checkpoint: skipping addresses (already complete)');
+    } else {
+      const sourceStream = createAddressesStream({ overture });
+      await run({ sourceStream, overture, themeLabel: 'addresses' });
+      checkpoint.commit('addresses', { theme: 'addresses' });
+    }
   }
 
   if (overture.themes.places && overture.themes.places.enabled) {
-    const sourceStream = createPlacesStream({ overture });
-    await run({ sourceStream, overture, themeLabel: 'places' });
+    if (checkpoint.has('places')) {
+      logger.info('checkpoint: skipping places (already complete)');
+    } else {
+      const sourceStream = createPlacesStream({ overture });
+      await run({ sourceStream, overture, themeLabel: 'places' });
+      checkpoint.commit('places', { theme: 'places' });
+    }
   }
 
   logger.info('pelias-overture done');

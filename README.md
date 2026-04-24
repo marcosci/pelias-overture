@@ -29,9 +29,14 @@ Requires Node 20+. DuckDB native bindings are installed automatically; if they f
 
 ## Usage
 
-```bash
-./bin/start
-```
+1. Create the Elasticsearch index + `pelias` alias using the official [`pelias-schema`](https://github.com/pelias/schema) mappings. This requires a Pelias-flavoured Elasticsearch with the ICU analysis plugin pre-installed — use the [`pelias/elasticsearch`](https://hub.docker.com/r/pelias/elasticsearch) image, **not** the stock `docker.elastic.co` one:
+   ```bash
+   npm run es:create-index
+   ```
+2. Run the importer:
+   ```bash
+   ./bin/start
+   ```
 
 Or via GitHub Container Registry:
 
@@ -104,6 +109,7 @@ Overture overlaps substantially with OSM venues and OpenAddresses. This importer
 - [`docs/category-map.md`](docs/category-map.md) — Overture → Pelias category taxonomy.
 - [`docs/performance.md`](docs/performance.md) — tuning for reader, admin lookup, and dbclient.
 - [`docs/benchmark-results.md`](docs/benchmark-results.md) — measured throughput snapshots.
+- [`docs/roadmap.md`](docs/roadmap.md) — upstream + ecosystem work beyond this repo.
 
 ## Layout
 
